@@ -6,3 +6,9 @@
   display: flex;
   justify-content: center;
 }
+
+.particles{
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+}
