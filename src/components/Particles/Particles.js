@@ -4,12 +4,11 @@ import { loadFull } from "tsparticles";
 
 const Particle = () => {
     const particlesInit = async (main) => {
-        console.log(main);
         await loadFull(main);
       };
     
     const particlesLoaded = (container) => {
-    console.log(container);
+    // console.log(container);
     };
 
     const particleOptions = {
@@ -82,7 +81,7 @@ const Particle = () => {
             value: { min: 1, max: 3 },
           },
         },
-        detectRetina: true,
+        detectRetina: false,
       }
 
     return(
