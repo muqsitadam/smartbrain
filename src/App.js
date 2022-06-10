@@ -17,22 +17,27 @@ class App extends Component{
 constructor(){
   super();
   this.state = {
-    input: '',
+    input: "",
+    imageUrl: ""
   }
 }
 
 onInputChange = (event) =>{
-  console.log(event.target.value)
+  this.setState({input: event.target.value})
 }
 
 onButtonSubmit= () => {
+
+  this.setState({
+    imageUrl: this.state.input
+  })
   console.log('click')
   apps.models.predict(
-    Clarifai.COLOR_MODEL,
-    "https://samples.clarifai.com/face-det.jpg")
+    Clarifai.FACE_DETECT_MODEL,
+    this.state.input)
     .then(
     function(response){
-      console.log(response)
+      console.log(response.outputs)
     },
     function(err){
       console.log(err)
@@ -43,14 +48,14 @@ onButtonSubmit= () => {
   render(){
     return(
       <div className="App">
-        <Particle />
+        <Particle className="particles" />
         <Navigation />
         <Logo />
         <Rank />
         <ImageLinkForm 
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit} />
-        <FaceRecognition />
+        <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
     );
   }
