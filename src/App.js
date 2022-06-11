@@ -3,9 +3,10 @@ import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
 import Rank from './components/Rank/Rank';
+import SignIn from './components/SignIn/SignIn';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Particle from './components/Particles/Particles';
-import Clarifai, { COLOR_MODEL } from 'clarifai';
+import Clarifai from 'clarifai';
 import './App.css';
 
 
@@ -19,7 +20,8 @@ constructor(){
   this.state = {
     input: "",
     imageUrl: "",
-    box: {}
+    box: {},
+    route: 'signIn'
   }
 }
 
@@ -56,19 +58,28 @@ onButtonSubmit= () => {
       this.state.input)
     .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
     .catch(err => console.log(err))
+} 
+
+onRouteChange = (route) => {
+  this.setState({route: route})
 }
 
   render(){
     return(
       <div className="App">
         <Particle className="particles" />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm 
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit} />
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+        <Navigation onRouteChange={this.onRouteChange}/>
+        {this.state.route === 'signIn'
+        ? <SignIn onRouteChange = {this.onRouteChange} />
+        : <div>
+            <Logo />
+            <Rank />
+            <ImageLinkForm 
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit} />
+            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+           </div> 
+        }
       </div>
     );
   }
