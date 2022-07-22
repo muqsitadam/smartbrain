@@ -15,23 +15,25 @@ const apps = new Clarifai.App({
   apiKey: 'b724e725d3674691b496eef8f4858d1f'
 })
 
+const initialState = {
+  input: "",
+  imageUrl: "",
+  box: {},
+  route: 'signIn',
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: ''
+  } 
+}
+
 class App extends Component{
 constructor(){
   super();
-  this.state = {
-    input: "",
-    imageUrl: "",
-    box: {},
-    route: 'signIn',
-    isSignedIn: false,
-    user: {
-      id: "",
-      name: "",
-      email: "",
-      entries: 0,
-      joined: ''
-    } 
-  }
+  this.state = initialState;
 }
 
 loadUser = (data) => {
@@ -90,14 +92,15 @@ onPictureSubmit= () => {
           //Note this... to update state without changing the whole user
           this.setState(Object.assign(this.state.user, {entries: count}))
         })
+        .catch(console.log)
       }
       this.displayFaceBox(this.calculateFaceLocation(response))})
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
 } 
 
 onRouteChange = (route) => {
   if(route === 'signOut'){
-    this.setState({isSignedIn: false})
+    this.setState(initialState)
   }else if(route === 'home'){
     this.setState({isSignedIn: true})
   }
