@@ -1,9 +1,9 @@
 # Getting Started with Smartbrain React App
 
-##Smartbrain
+## Smartbrain
 A react app that can be used to detect faces in an image. The frontend was built using React and NodeJS for the server side and PostgresSQL for my database. It collects user information  stores them and updates entries everytime an image is submitted. Check my app out and I am sure you would love it.
 
-##Live Link: https://muqsit-smartbrain.herokuapp.com/
+## Live Link: https://muqsit-smartbrain.herokuapp.com/
 
 ## Face Detection model used: https://www.clarifai.com/models/face-detection
 
